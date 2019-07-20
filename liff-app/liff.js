@@ -234,6 +234,20 @@ function liffGetUserService(service) {
     }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
     });
+    
+    // Temperature value
+    service.getCharacteristic(BTN_CHARACTERISTIC_UUID).then(characteristic => {
+        liffGetTemperatureCharacteristic(characteristic);
+    }).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
+    
+    // Humidity value
+    service.getCharacteristic(BTN_CHARACTERISTIC_UUID).then(characteristic => {
+        liffGetHumidityCharacteristic(characteristic);
+    }).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
 }
 
 function liffGetPSDIService(service) {
