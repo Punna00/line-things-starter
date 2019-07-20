@@ -1,8 +1,10 @@
 // User service UUID: Change this to your generated service UUID
 const USER_SERVICE_UUID         = 'b5553ebc-d1f8-4924-9054-83c1ed7ff526'; // LED, Button
+const TEMP_SERVICE_UUID         = 'a385d8ed-14d4-45d4-95ef-1c45c58db437'; // Temperature
 // User service characteristics
 const LED_CHARACTERISTIC_UUID   = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B027B';
 const BTN_CHARACTERISTIC_UUID   = '62FBD229-6EDD-4D1A-B554-5C4E1BB29169';
+const TEMP_CHARACTERISTIC_UUID  = '7692483a-6fee-4402-a594-2a1b2172361d';
 
 // PSDI Service UUID: Fixed value for Developer Trial
 const PSDI_SERVICE_UUID         = 'e625601e-9e55-4597-a598-76018a0d293d'; // Device ID
@@ -187,6 +189,11 @@ function liffConnectToDevice(device) {
         }).catch(error => {
             uiStatusError(makeErrorMsg(error), false);
         });
+        device.gatt.getPrimaryService(TEMP_SERVICE_UUID).then(service => {
+            liffGetTempService(service);
+        }).catch(error => {
+            uiStatusError(makeErrorMsg(error), false);
+        });
         device.gatt.getPrimaryService(PSDI_SERVICE_UUID).then(service => {
             liffGetPSDIService(service);
         }).catch(error => {
@@ -231,6 +238,22 @@ function liffGetUserService(service) {
 
         // Switch off by default
         liffToggleDeviceLedState(false);
+    }).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
+    
+    // Temperature value
+    service.getCharacteristic(TEMP_CHARACTERISTIC_UUID).then(characteristic => {
+        liffGetTemperatureCharacteristic(characteristic);
+    }).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
+}
+
+function liffGetTempService(service) {
+    // Temperature value
+    service.getCharacteristic(TEMP_CHARACTERISTIC_UUID).then(characteristic => {
+        liffGetTemperatureCharacteristic(characteristic);
     }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
     });
