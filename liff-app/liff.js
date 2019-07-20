@@ -1,8 +1,8 @@
 // User service UUID: Change this to your generated service UUID
 const USER_SERVICE_UUID         = 'b5553ebc-d1f8-4924-9054-83c1ed7ff526'; // LED, Button
 // User service characteristics
-const LED_CHARACTERISTIC_UUID   = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B0270';
-const BTN_CHARACTERISTIC_UUID   = '62FBD229-6EDD-4D1A-B554-5C4E1BB2916B';
+//const LED_CHARACTERISTIC_UUID   = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B0270';
+//const BTN_CHARACTERISTIC_UUID   = '62FBD229-6EDD-4D1A-B554-5C4E1BB2916B';
 const TEMP_CHARACTERISTIC_UUID  = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B027B';
 const HUMID_CHARACTERISTIC_UUID = '62FBD229-6EDD-4D1A-B554-5C4E1BB29169';
 
@@ -221,6 +221,7 @@ function liffConnectToDevice(device) {
 
 function liffGetUserService(service) {
     // Button pressed state
+    /*
     service.getCharacteristic(BTN_CHARACTERISTIC_UUID).then(characteristic => {
         liffGetButtonStateCharacteristic(characteristic);
     }).catch(error => {
@@ -236,7 +237,7 @@ function liffGetUserService(service) {
     }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
     });
-    
+    */
     // Temperature value
     service.getCharacteristic(TEMP_CHARACTERISTIC_UUID).then(characteristic => {
         liffGetTemperatureCharacteristic(characteristic);
