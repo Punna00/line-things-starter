@@ -256,11 +256,6 @@ function liffGetButtonStateCharacteristic(characteristic) {
     characteristic.startNotifications().then(() => {
         characteristic.addEventListener('characteristicvaluechanged', e => {
             const val = (new Uint8Array(e.target.value.buffer))[0];
-            const temp = (new Uint8Array(e.target.value.buffer))[0];
-            const humid = (new Uint8Array(e.target.value.buffer))[0];
-            
-            uiTemp(temp);
-            uiHumid(humid);
             
             if (val > 0) {
                 // press
@@ -282,6 +277,36 @@ function liffToggleDeviceLedState(state) {
     window.ledCharacteristic.writeValue(
         state ? new Uint8Array([0x01]) : new Uint8Array([0x00])
     ).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
+}
+
+function liffGetTemperatureCharacteristic(characteristic) {
+    // Add notification hook for button state
+    // (Get notified when button state changes)
+    characteristic.startNotifications().then(() => {
+        characteristic.addEventListener('characteristicvaluechanged', e => {
+            const temp = (new Uint8Array(e.target.value.buffer))[0];
+           
+            uiTemp(temp);
+            
+        });
+    }).catch(error => {
+        uiStatusError(makeErrorMsg(error), false);
+    });
+}
+
+function liffGetHumidityCharacteristic(characteristic) {
+    // Add notification hook for button state
+    // (Get notified when button state changes)
+    characteristic.startNotifications().then(() => {
+        characteristic.addEventListener('characteristicvaluechanged', e => {
+            const humid = (new Uint8Array(e.target.value.buffer))[0];
+           
+            uiTemp(humid);
+            
+        });
+    }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
     });
 }
