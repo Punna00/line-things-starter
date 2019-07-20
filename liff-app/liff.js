@@ -3,6 +3,8 @@ const USER_SERVICE_UUID         = 'b5553ebc-d1f8-4924-9054-83c1ed7ff526'; // LED
 // User service characteristics
 const LED_CHARACTERISTIC_UUID   = 'E9062E71-9E62-4BC6-B0D3-35CDCD9B027B';
 const BTN_CHARACTERISTIC_UUID   = '62FBD229-6EDD-4D1A-B554-5C4E1BB29169';
+const TEMP_CHARACTERISTIC_UUID  = '7692483a-6fee-4402-a594-2a1b2172361d';
+const HUMID_CHARACTERISTIC_UUID = '5781da36-2416-4243-907a-babd4d760d58';
 
 // PSDI Service UUID: Fixed value for Developer Trial
 const PSDI_SERVICE_UUID         = 'e625601e-9e55-4597-a598-76018a0d293d'; // Device ID
@@ -236,14 +238,14 @@ function liffGetUserService(service) {
     });
     
     // Temperature value
-    service.getCharacteristic(BTN_CHARACTERISTIC_UUID).then(characteristic => {
+    service.getCharacteristic(TEMP_CHARACTERISTIC_UUID).then(characteristic => {
         liffGetTemperatureCharacteristic(characteristic);
     }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
     });
     
     // Humidity value
-    service.getCharacteristic(BTN_CHARACTERISTIC_UUID).then(characteristic => {
+    service.getCharacteristic(HUMID_CHARACTERISTIC_UUID).then(characteristic => {
         liffGetHumidityCharacteristic(characteristic);
     }).catch(error => {
         uiStatusError(makeErrorMsg(error), false);
